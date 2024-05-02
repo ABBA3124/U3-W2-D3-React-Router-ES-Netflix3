@@ -1,13 +1,38 @@
-import React from "react"
 import logo from "./img/netflix_logo.png"
 import avatar from "./img/avatar.png"
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap"
+import { Container, Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap"
 import "./CustomNavbar.css"
-import { NavLink } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate, useLocation } from "react-router-dom"
+import React, { useState } from "react";
 
 function CustomNavbar() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const [searchTerm, setSearchTerm] = useState("")
+  const [showSearch, setShowSearch] = useState(false)
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value)
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    navigate(`/search/${searchTerm}`)
+    setSearchTerm("")
+    setShowSearch(false)
+  }
+
+  const toggleSearch = () => {
+    setShowSearch(!showSearch)
+  }
+
+  // placeholder in base alla pagina corrente
+  const getPlaceholder = () => {
+    if (location.pathname.includes("/Tv-Shows")) {
+      return "Cerca Serie TV..."
+    }
+    return "Cerca Film"
+  }
 
   return (
     <Navbar bg="black" expand="lg" variant="dark">
@@ -35,19 +60,25 @@ function CustomNavbar() {
             </NavLink>
           </Nav>
           <Nav className="d-flex align-items-center flex-row">
-            <div>
-              <Nav.Link href="#" className="text-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-search text-white"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg>
-              </Nav.Link>
+            <div className="d-flex flex-row-reverse">
+            <Nav.Link onClick={toggleSearch} className="text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search text-white" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+              </svg>
+            </Nav.Link>
+            {showSearch && (
+              <Form className="d-flex" onSubmit={handleSearchSubmit}>
+                <FormControl
+                  type="search"
+                  placeholder={getPlaceholder()}
+                  className="me-2"
+                  aria-label="Search"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+                <Button variant="outline-danger" type="submit">Cerca</Button>
+              </Form>
+            )}
             </div>
             <div className="ms-3 ms-md-0">
               <Nav.Link href="#KIDS" className="text-white">
