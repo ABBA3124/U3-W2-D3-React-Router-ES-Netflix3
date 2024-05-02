@@ -1,0 +1,7 @@
+.hover5 {
+  color: rgba(255, 255, 255, 0.541);
+}
+
+.hover5:hover {
+  color: white;
+}
