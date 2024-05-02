@@ -33,6 +33,7 @@ function MovieDetails() {
 
   if (!movieDetails) return <p>Caricamento...</p>
 
+  //metedo che ho trovato per formattare date con js nativo
   function formatDate(dateString) {
     const date = new Date(dateString)
     return (
@@ -58,19 +59,39 @@ function MovieDetails() {
       </Col>
       <Col xs={12} lg={6} xl={6} xxl={6}>
         <h1>{movieDetails.Title}</h1>
-        <h5 className="mt-4">Descrizione:</h5>
+        <hr />
+        <h6>
+          {" "}
+          <strong>Pubblicato:</strong> {movieDetails.Released}
+        </h6>
+        <h6>
+          <strong>Durata:</strong> {movieDetails.Runtime}
+        </h6>
+        <h6>
+          <strong>Categoria:</strong> {movieDetails.Genre}
+        </h6>
+        <h6>
+          <strong>Attori:</strong> {movieDetails.Actors}
+        </h6>
+        <h6>
+          <strong>Regia:</strong> {movieDetails.Director}
+        </h6>
+        <hr />
+        <h5 className="mt-4">Trama</h5>
         <p className="text-warning">{movieDetails.Plot}</p>
-        <div className="mt-5">
+        <hr />
+        <div className="mt-2">
           <h3>Commenti</h3>
           {comments.length > 0 ? (
             <div>
               {comments.map((comment) => (
                 <div key={comment._id}>
-                  <h5>Commento: {comment.comment}</h5>
+                  <h5>🗒️{comment.comment}</h5>
                   <p>{comment.rate}/5⭐</p>
-                  <p>Utente: {comment.author}</p>
-                  <p>Creata: {formatDate(comment.createdAt)}</p>
+                  <p>🙋{comment.author}</p>
+                  <p>✍️{formatDate(comment.createdAt)}</p>
                   <p>Ultimo Aggiornamento: {formatDate(comment.updatedAt)}</p>
+                  <hr />
                 </div>
               ))}
             </div>
