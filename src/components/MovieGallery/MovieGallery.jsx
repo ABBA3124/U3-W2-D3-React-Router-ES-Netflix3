@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useNavigate, useParams, Link } from 'react-router-dom'
+import { useNavigate, useParams, Link } from "react-router-dom"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -7,17 +7,15 @@ import "./MovieGallery.css"
 import Spinner from "react-bootstrap/Spinner"
 
 function MovieGallery({ title, categories }) {
-  const { searchTerm } = useParams() 
+  const { searchTerm } = useParams()
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const API_KEY = "1e8e8b46"
-  const baseAPI_URL = "http://www.omdbapi.com/"
-  const API_URL = searchTerm
-    ? `${baseAPI_URL}?apikey=${API_KEY}&s=${encodeURIComponent(searchTerm)}`
-    : `http://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(title)}`
+  const API_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(searchTerm || title)}`
 
   useEffect(() => {
+    setLoading(true)
     fetch(API_URL)
       .then((response) => response.json())
       .then((data) => {
@@ -28,10 +26,11 @@ function MovieGallery({ title, categories }) {
         }
         setLoading(false)
       })
-      .catch((error) => console.error("Errore nella fetch: ", error))
-      
-      
-  }, )
+      .catch((error) => {
+        console.error("Errore nella fetch: ", error)
+        setLoading(false)
+      })
+  }, [API_URL])
 
   if (loading) {
     return (
@@ -45,14 +44,12 @@ function MovieGallery({ title, categories }) {
   }
 
   if (movies.length === 0) {
-    
-
     return (
       <div className="text-center text-secondary mt-5 mb-5">
-        <h1>
-          Nessun film trovato
-        </h1>
-        <Link to="/" className="btn btn-primary mt-3">Torna alla Home</Link>
+        <h1>Nessun film trovato</h1>
+        <Link to="/" className="btn btn-primary mt-3">
+          Torna alla Home
+        </Link>
       </div>
     )
   }
@@ -129,16 +126,12 @@ function MovieGallery({ title, categories }) {
     ],
   }
 
-  const handleMovieClick = (movieId) => {
-    navigate(`/movie-details/${movieId}`)
-  }
-
   return (
     <div className="mt-5">
       <h2 className="text-white fs-4">{categories}</h2>
       <Slider {...settings}>
-        {movies.map((movie) => (
-          <div key={movie.imdbID} className="movie provaa" onClick={() => handleMovieClick(movie.imdbID)}>
+        {movies.map(movie => (
+          <div key={movie.imdbID} className="movie provaa" onClick={() => navigate(`/movie-details/${movie.imdbID}`)}>
             <img src={movie.Poster} alt={movie.Title} style={{ width: "160px" }} className="mb-2" />
             <h4 style={{ fontSize: "15px", width: "120px" }} className="text-white">
               {movie.Title}
