@@ -21,7 +21,7 @@ function CustomNavbar() {
             <NavLink to="/" className="nav-link hover5">
               Home
             </NavLink>
-            <NavLink to="/Shows" className="nav-link hover5">
+            <NavLink to="/Tv-Shows" className="nav-link hover5">
               Tv Shows
             </NavLink>
             <NavLink to="/not-found" className="nav-link hover5">

@@ -33,9 +33,9 @@ function App() {
                 </>
               }
             />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/Shows" element={<TVShowsPage />} />
+            <Route path="/Settings" element={<SettingsPage />} />
+            <Route path="/Profile" element={<ProfilePage />} />
+            <Route path="/Tv-Shows" element={<TVShowsPage />} />
           </Routes>
           <Footer />
         </main>
