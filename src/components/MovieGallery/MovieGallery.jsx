@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -7,11 +7,15 @@ import "./MovieGallery.css"
 import Spinner from "react-bootstrap/Spinner"
 
 function MovieGallery({ title, categories }) {
+  const { searchTerm } = useParams() 
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const API_KEY = "1e8e8b46"
-  const API_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(title)}`
+  const baseAPI_URL = "http://www.omdbapi.com/"
+  const API_URL = searchTerm
+    ? `${baseAPI_URL}?apikey=${API_KEY}&s=${encodeURIComponent(searchTerm)}`
+    : `http://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(title)}`
 
   useEffect(() => {
     fetch(API_URL)
@@ -25,6 +29,8 @@ function MovieGallery({ title, categories }) {
         setLoading(false)
       })
       .catch((error) => console.error("Errore nella fetch: ", error))
+      
+      
   }, )
 
   if (loading) {
@@ -39,11 +45,14 @@ function MovieGallery({ title, categories }) {
   }
 
   if (movies.length === 0) {
+    
+
     return (
-      <div className="text-secondary mt-3 mb-3">
-        <h2>
-          Nessun film trovato con il nome: <span className="text-white">{title}.</span>
-        </h2>
+      <div className="text-center text-secondary mt-5 mb-5">
+        <h1>
+          Nessun film trovato
+        </h1>
+        <Link to="/" className="btn btn-primary mt-3">Torna alla Home</Link>
       </div>
     )
   }

@@ -24,14 +24,13 @@ function App() {
               element={
                 <>
                   <FilterGenres />
-                  <MovieGallery title="action" categories="Titoli consigliati" />
+                  <MovieGallery title="fast and furious" categories="Perché hai guardato Need For Speed" />
                   <MovieGallery title="transformers" categories="Titoli che potrebbero piacerti" />
                   <MovieGallery title="Harry Potter" categories="Trending Now" />
-                  <MovieGallery title="fast and furious" categories="Perché hai guardato Need For Speed" />
+                  <MovieGallery title="Avengers" categories="Perchè hai guardato Iron-Man" />
+                  <MovieGallery title="marvel" categories="Titoli consigliati" />
                   <MovieGallery title="Lord of the Rings" categories="Watch It Again" />
                   <MovieGallery title="Star Wars" categories="New Releases" />
-                  <MovieGallery title="dkhbfjhsbhdf" categories="Titoli consigliati" />{" "}
-                  {/* lasciato appositamente per far vedere che se non trova riscontro ci avvisa */}
                 </>
               }
             />
@@ -39,6 +38,7 @@ function App() {
             <Route path="/Profile" element={<ProfilePage />} />
             <Route path="/Tv-Shows" element={<TVShowsPage />} />
             <Route path="/movie-details/:movieId" element={<MovieDetails />} />
+            <Route path="/search/:searchTerm" element={<MovieGallery />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
