@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useNavigate } from 'react-router-dom'
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -8,6 +9,7 @@ import Spinner from "react-bootstrap/Spinner"
 function MovieGallery({ title, categories }) {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
   const API_KEY = "1e8e8b46"
   const API_URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(title)}`
 
@@ -118,13 +120,17 @@ function MovieGallery({ title, categories }) {
     ],
   }
 
+  const handleMovieClick = (movieId) => {
+    navigate(`/movie-details/${movieId}`)
+  }
+
   return (
     <div className="mt-5">
       <h2 className="text-white fs-4">{categories}</h2>
       <Slider {...settings}>
         {movies.map((movie) => (
-          <div key={movie.imdbID} className="provaa">
-            <img src={movie.Poster} alt={movie.Title} style={{ width: "160px" }} className="mb-2 " />
+          <div key={movie.imdbID} className="movie provaa" onClick={() => handleMovieClick(movie.imdbID)}>
+            <img src={movie.Poster} alt={movie.Title} style={{ width: "160px" }} className="mb-2" />
             <h4 style={{ fontSize: "15px", width: "120px" }} className="text-white">
               {movie.Title}
             </h4>

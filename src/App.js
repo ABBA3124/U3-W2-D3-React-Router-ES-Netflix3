@@ -9,6 +9,7 @@ import ProfilePage from "./components/ProfilePage/ProfilePage.jsx"
 import SettingsPage from "./components/SettingsPage/SettingsPage.jsx"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import  TVShowsPage  from "./components/TVShowsPage/TVShowsPage.jsx"
+import MovieDetails from "./components/MovieDetails/MovieDetails.jsx"
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/Settings" element={<SettingsPage />} />
             <Route path="/Profile" element={<ProfilePage />} />
             <Route path="/Tv-Shows" element={<TVShowsPage />} />
+            <Route path="/movie-details/:movieId" element={<MovieDetails />} />
           </Routes>
           <Footer />
         </main>

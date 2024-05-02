@@ -1,7 +1,11 @@
 .provaa {
-  transition: 0.2s;
+  transition: 0.7s;
 }
 
 .provaa:hover {
   transform: scale(1.1);
+}
+
+.movie {
+  cursor: pointer;
 }
