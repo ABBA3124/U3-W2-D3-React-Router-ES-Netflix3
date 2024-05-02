@@ -10,6 +10,7 @@ import SettingsPage from "./components/SettingsPage/SettingsPage.jsx"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import  TVShowsPage  from "./components/TVShowsPage/TVShowsPage.jsx"
 import MovieDetails from "./components/MovieDetails/MovieDetails.jsx"
+import NotFound from "./components/NotFound/NotFound.jsx"
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/Profile" element={<ProfilePage />} />
             <Route path="/Tv-Shows" element={<TVShowsPage />} />
             <Route path="/movie-details/:movieId" element={<MovieDetails />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </main>
