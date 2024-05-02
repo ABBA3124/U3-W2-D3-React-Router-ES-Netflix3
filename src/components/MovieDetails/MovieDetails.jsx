@@ -42,7 +42,7 @@ function MovieDetails() {
     .then((data) => setComments(data))
     .catch((error) => console.error("Errore della fetch comments:", error))
 }, [movieId, navigate])
-  if (!movieDetails) return <p>Caricamento...</p>
+  if (!movieDetails) return <p className="text-center text-white mt-5 mb-5 fs-1">Caricamento In Corso...</p>
 
   //metedo che ho trovato per formattare date con js nativo
   function formatDate(dateString) {
